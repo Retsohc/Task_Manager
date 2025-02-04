@@ -1,4 +1,6 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
+import { Task } from '../../tasks/entities/task.entity';
+import { TaskStatus } from '../../tasks/entities/task-status.enum';
 
 @Injectable()
 export class SqlInjectionMiddleware implements NestMiddleware {
@@ -9,5 +11,15 @@ export class SqlInjectionMiddleware implements NestMiddleware {
       }
     }
     next();
+  }
+
+  updateTaskStatus(id: number, status: TaskStatus): Task {
+    const task = this.findTaskById(id);
+    task.status = status;
+    return task;
+  }
+
+  private findTaskById(id: number): Task {
+    return new Task();
   }
 }

@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-import { IsString, IsBoolean, IsNotEmpty } from 'class-validator';
+import { IsString, IsEnum, IsNotEmpty } from 'class-validator';
+import { TaskStatus } from '../entities/task-status.enum';
 
 @Entity()
 export class Task {
@@ -15,7 +16,7 @@ export class Task {
   @IsString()
   description!: string;
 
-  @Column({ default: false })
-  @IsBoolean()
-  completed!: boolean;
+  @Column({ type: 'enum', enum: TaskStatus, default: TaskStatus.PENDING })
+  @IsEnum(TaskStatus)
+  status!: TaskStatus;
 }
