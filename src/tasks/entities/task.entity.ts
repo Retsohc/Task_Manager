@@ -16,7 +16,13 @@ export class Task {
   @IsString()
   description!: string;
 
-  @Column({ type: 'enum', enum: TaskStatus, default: TaskStatus.PENDING })
+  @Column({ type: 'enum', enum: TaskStatus, default: TaskStatus.NOT_STARTED })
   @IsEnum(TaskStatus)
-  status!: TaskStatus;
+  status_!: TaskStatus;
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  created_task!: Date;
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
+  updated_task!: Date;
 }
