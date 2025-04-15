@@ -1,6 +1,6 @@
 import { EntityRepository, Repository } from 'typeorm';
-import { Task } from './entities/task.entity';
-import { TaskStatus } from './entities/task-status.enum';
+import { Task } from '../database/entities/task.entity';
+import { TaskStatus } from '../database/entities/task-status.enum';
 import { CreateTaskDto } from './dtos/create-task.dto';
 import { UpdateTaskDto } from './dtos/update-task.dto';
 import { TaskQueryDto } from './dtos/task-query.dto';
@@ -13,7 +13,7 @@ export class TasksRepository extends Repository<Task> {
     const task = this.create({
       title,
       description,
-      status: TaskStatus.PENDING,
+      status_: TaskStatus.NOT_STARTED,
     });
 
     await this.save(task);
@@ -32,7 +32,7 @@ export class TasksRepository extends Repository<Task> {
       throw new Error('Status is undefined');
     }
 
-    task.status = status;
+    task.status_ = status;
     await this.save(task);
     return task;
   }

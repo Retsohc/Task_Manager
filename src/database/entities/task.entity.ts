@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { IsString, IsEnum, IsNotEmpty } from 'class-validator';
-import { TaskStatus } from '../entities/task-status.enum';
+import { TaskStatus } from './task-status.enum';
 
 @Entity()
 export class Task {
